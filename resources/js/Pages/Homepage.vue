@@ -20,8 +20,8 @@
 			<section class="text-center py-16 bg-blue-100">
 				<h1 class="text-4xl font-bold mb-4">🚀 Share Your Side Projects & Get Inspired!</h1>
 				<div class="space-x-4">
-					<button class="bg-green-500 px-6 py-2 text-white rounded-lg">Post a Project</button>
-					<button class="bg-blue-500 px-6 py-2 text-white rounded-lg">Explore Projects</button>
+					<button class="btn-green">Post a Project</button>
+					<button class="btn-blue">Explore Projects</button>
 				</div>
 			</section>
 		</div>
@@ -36,14 +36,7 @@
 					<h2 class="text-2xl font-bold">🆕 Latest Projects</h2>
 				</div>
 				<div class="grid grid-cols-2 gap-4">
-					<div class="bg-white p-4 rounded-lg shadow-md" v-for="n in 6" :key="n">
-						<h3 class="font-semibold">Project Title {{n}}</h3>
-						<p class="text-gray-500">Short project description...</p>
-						<div class="flex justify-between items-center mt-2">
-							<span>🔥 120</span>
-							<span>💬 45</span>
-						</div>
-					</div>
+					<ProjectCard v-for="n in 6" :key="n" :title="'Project Title ' + n" description="Short project description..." :likes="120" :comments="45" />
 				</div>
 			</section>
 		</div>
@@ -66,15 +59,12 @@
 		<div class="container mx-auto px-4">
 			<!-- Leaderboard & Top Contributors -->
 			<section class="p-8">
-				<h2 class="text-2xl font-bold">🏆 Leaderboard | 🎖️ Top Contributors</h2>
-				<div class="grid grid-cols-3 gap-4 mt-4">
-					<div v-for="i in 3" :key="i" class="flex items-center space-x-4">
-						<div class="w-10 h-10 bg-gray-300 rounded-full"></div>
-						<div>
-							<h4 class="font-semibold">User Name {{ i }}</h4>
-							<p class="text-gray-600">Score: {{ i * 100 }}</p>
-						</div>
-					</div>
+				<div class="flex justify-between mb-4">
+					<h2 class="text-2xl font-bold">🏆 Leaderboard</h2>
+					<h2 class="text-2xl font-bold">🎖️ Top Contributors</h2>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<ContributorCard v-for="i in 6" :key="i" :name="'User Name ' + i" :score="i * 100" />
 				</div>
 			</section>
 		</div>
@@ -85,7 +75,7 @@
 			<!-- Call to Action -->
 			<section class="text-center py-16 bg-green-100">
 				<h2 class="text-3xl font-bold mb-4">📢 Join the Community & Share Your Ideas!</h2>
-				<button class="px-6 py-2 bg-blue-500 text-white rounded-lg">Get Started for Free</button>
+				<button class="btn-blue">Get Started for Free</button>
 			</section>
 		</div>
 	</div>
@@ -106,15 +96,27 @@
 </template>
   
 <script>
-	export default {
-		name: 'HomePage',
-	};
+import ProjectCard from '@/components/ProjectCard.vue';
+import ContributorCard from '@/components/ContributorCard.vue';
+
+export default {
+	name: 'HomePage',
+	components: {
+		ProjectCard,
+		ContributorCard
+	}
+};
 </script>
 
 <style scoped>
 	.container {
 		max-width: 1200px;
 	}
+	.btn-green {
+		@apply bg-green-500 px-6 py-2 text-white rounded-lg;
+	}
+	.btn-blue {
+		@apply bg-blue-500 px-6 py-2 text-white rounded-lg;
+	}
 </style>
-  
-  
+
